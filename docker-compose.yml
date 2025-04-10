@@ -1,0 +1,37 @@
+version: "3.3"
+services:
+  mysql-db:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5g"
+    environment:
+      MYSQL_ROOT_PASSWORD: 22utAEFZcaVCeVfN
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/config:/etc/mysql/conf.d
+      - ./mysql/log:/var/log/mysql
+    # networks:
+    #   - indoor-network
+    # expose:
+    #   - 3306
+
+  # indoor-pos:
+  #   depends_on:
+  #     - mysql-db
+  #   build: .
+  #   container_name: indoor-pos
+  #   ports:
+  #     - "8080:8080"
+  #     - "5005:5005"
+#     networks:
+#       - indoor-network
+
+# networks:
+#   indoor-network:
+#     driver: bridge

@@ -148,17 +148,17 @@ public class Centroid implements Dealer{
 		
 		/*基站的坐标信息应当根据id去数据库中查找*/
 		/*如果每次参加运算的基站数大于3，可以用StringBuilder拼接sql语句*/
-		this.jdbcTemplate.query("select base_id,x_axis,y_axis from base_station where base_id in (?,?,?)",   
-                new Object[] { ids[0],ids[1],ids[2]},   
-                new RowCallbackHandler() {     
+		this.jdbcTemplate.query("select base_id,x_axis,y_axis from base_station where base_id in (?,?,?)",
+                new Object[] { ids[0],ids[1],ids[2]},
+                new RowCallbackHandler() {
               
-                    @Override    
+                    @Override
                     public void processRow(ResultSet rs) throws SQLException {
                     	double[] loc1 = new double[2];
         				loc1[0]=rs.getDouble(2);
         				loc1[1]=rs.getDouble(3);
         				basesLocation.put(rs.getString(1), loc1);
-                    }     
+                    }
         });   
 		
 		Round r[] = new Round[3];

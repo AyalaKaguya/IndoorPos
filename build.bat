@@ -1,0 +1,1 @@
+.\maven-mvnd-1.0.2-windows-amd64\bin\mvnd.cmd clean package

@@ -1,2 +1,5 @@
 /target
 /.settings
+mysql/
+maven-*.log
+maven-mvnd-1.0.2-windows-amd64/
