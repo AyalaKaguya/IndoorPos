@@ -96,4 +96,9 @@ public class CopyOnWriteMap<K, V> implements Map<K, V>, Cloneable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return internalMap.toString();
+	}
 }

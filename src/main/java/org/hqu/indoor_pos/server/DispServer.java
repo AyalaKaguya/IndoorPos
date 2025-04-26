@@ -24,7 +24,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 public class DispServer {
 
     /*定位结果传输端口号*/
-    public static final int DISP_PORT = 5006;
+    public static final int DISP_PORT = 50005;
     
     /*显示定位结果的客户端列表*/
     private CopyOnWriteArrayList<DispClient> dispClients;

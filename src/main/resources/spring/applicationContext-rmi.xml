@@ -25,7 +25,7 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.BaseStationManage" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 	
 	<!-- 注入要发布的RMI服务类 -->
@@ -39,7 +39,7 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.EmployeeManage" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 	
 	<!-- 注入要发布的RMI服务类 -->
@@ -53,7 +53,7 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.EnvFactorManage" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 	
 	<!-- 注入要发布的RMI服务类 -->
@@ -67,7 +67,7 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.HistoryLocation" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 	
 	<!-- 注入要发布的RMI服务类 -->
@@ -81,7 +81,7 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.Login" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 	
 	<!-- 注入要发布的RMI服务类 -->
@@ -95,7 +95,7 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.LoginInfoManage" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 	
 	<!-- 注入要发布的RMI服务类 -->
@@ -109,6 +109,6 @@
 		<!-- 导出接口 -->
 		<property name="serviceInterface" value="org.hqu.indoor_pos.rmi.RoomManage" />
 		<!-- spring默认使用1099端口 -->
-		<property name="registryPort" value="5005" />
+		<property name="registryPort" value="1099" />
 	</bean>
 </beans>

@@ -38,7 +38,6 @@ public class WeightTrilateral implements Dealer{
 	
 	@Override
 	public Location getLocation(String str){
-		
 		/*实例化定位结果*/
 		location = new Location();
 		

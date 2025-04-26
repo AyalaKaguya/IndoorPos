@@ -20,7 +20,7 @@
 
 系统的架构图如下：
 
- ![室内定位系统架构图](https://github.com/megagao/IndoorPos/blob/master/image/%E5%AE%A4%E5%86%85%E5%AE%9A%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+ ![室内定位系统架构图](./image/%E5%AE%A4%E5%86%85%E5%AE%9A%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
 
 图中各流程注解如下：
 
@@ -43,7 +43,7 @@
 
 本程序的功能结构图如图所示：
 
-![IndoorPos功能结构图](https://github.com/megagao/IndoorPos/blob/master/image/IndoorPos%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%9B%BE.png)
+![IndoorPos功能结构图](./image/IndoorPos%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%9B%BE.png)
 
 # 三、定位算法简介 #
 
@@ -53,13 +53,13 @@
 
 实际中通常用来测得基站与终端距离的简化无线信号渐变模型如下：
 
-![无线信号渐变模型](https://github.com/megagao/IndoorPos/blob/master/image/%E6%97%A0%E7%BA%BF%E4%BF%A1%E5%8F%B7%E6%B8%90%E5%8F%98%E6%A8%A1%E5%9E%8B.png)
+![无线信号渐变模型](./image/%E6%97%A0%E7%BA%BF%E4%BF%A1%E5%8F%B7%E6%B8%90%E5%8F%98%E6%A8%A1%E5%9E%8B.png)
 
 式中，P(d )表示距离基站直线距离为d时终端接收到的信号强度，即RSSI值；P (d)表示距离基站为d时终端接收到的信号功率；为参考距离，为计算方便，通常选择一米处为参考距离；n是路径损耗(Pass Loss)指数，通常是由实际测量得到，障碍物越多，n值越大，从而接收到的平均能量下降的速度会随着距离的增加而变得越来越快 。
 
 在实际应用中，通常需要实地测量得到基站在一米处接收到的功率值、环境衰减因子、高度补偿三个值，分别记为p0、n、h。其中，h根据终端一般使用时，与基站的垂直距离得到；p0、n测量时，由于具体室内模型的建立与优化，对定位效果影响最大，为使模型能够最大程度符合当前室内环境中的无线信号传播特性，使RSSI测距能获得更高的精度，需要对参数A和n进行优化进而得到当前室内环境下的最优值。一般通过线性回归分析来估计参数和的值，因为RSSI值在超过14m以后基本趋于平缓，不再符合接收信号强度随着距离增大而衰减的规律。所以为保证测距精度，基站固定后，以20 cm为间隔，在距离基站14m的范围内设置70个测量点，即距离基站0.2 m，0.4 m，…，14m等位置。在每个测试点接收100个数据包后，对100个RSSI值求平均值，再以平均后的RSSI值作为终端在该位置收到的信号强度。最后记录RSSI和d的对应关系，这样就得到了70组测量数据()，= 1，2，3，…，100，其中表示距离为时终端接收到的功率值。对所采集的70组测量数据使用线性回归分析，带入以下公式，即可求出p0、n（式中A表示p0）：
 
-![计算p0、n](https://github.com/megagao/IndoorPos/blob/master/image/%E8%AE%A1%E7%AE%97p0%E3%80%81n.png)
+![计算p0、n](./image/%E8%AE%A1%E7%AE%97p0%E3%80%81n.png)
 
 ## 3.2定位 ##
 
@@ -69,29 +69,29 @@
 
 在基于测距的定位算法中，三边测量法是比较简单的算法，算法原理为：平面上有三个不共线的基站 A,B,C，和一个未知终端 D，并已测出三个基站到终端D的距离分别为R1，R2，R3，则以三个基站坐标为圆心，三基站到未知终端距离为半径可以画出三个相交的圆，如图下图所示，未知节点坐标即为三圆相交点。 
 
-![三边定位法](https://github.com/megagao/IndoorPos/blob/master/image/%E4%B8%89%E8%BE%B9%E5%AE%9A%E4%BD%8D%E6%B3%95.png)
+![三边定位法](./image/%E4%B8%89%E8%BE%B9%E5%AE%9A%E4%BD%8D%E6%B3%95.png)
 
 然而，在实际测量中，往往由于测量的误差，使三个圆并不交于一点，而相交于一块区域，如下图所示。在此种情况下，便需用其他算法进行求解，如极大似然估计法，最小二乘法进行估计，或者使用三角形质心算法。
 
-![相交于一片区域](https://github.com/megagao/IndoorPos/blob/master/image/%E7%9B%B8%E4%BA%A4%E4%BA%8E%E4%B8%80%E7%89%87%E5%8C%BA%E5%9F%9F.png)
+![相交于一片区域](./image/%E7%9B%B8%E4%BA%A4%E4%BA%8E%E4%B8%80%E7%89%87%E5%8C%BA%E5%9F%9F.png)
 
 这里，我们的算法采用最小二乘法求近似解，并针对n个基站（n≥3），已知n个基站的坐标分别为 ()，()，…，() ，未知终端坐标为() ，由以下步骤求解：
 
 ①：建立信标节点与未知节点距离方程组
 
-![信标节点与未知节点距离方程组](https://github.com/megagao/IndoorPos/blob/master/image/%E4%BF%A1%E6%A0%87%E8%8A%82%E7%82%B9%E4%B8%8E%E6%9C%AA%E7%9F%A5%E8%8A%82%E7%82%B9%E8%B7%9D%E7%A6%BB%E6%96%B9%E7%A8%8B%E7%BB%84.png)
+![信标节点与未知节点距离方程组](./image/%E4%BF%A1%E6%A0%87%E8%8A%82%E7%82%B9%E4%B8%8E%E6%9C%AA%E7%9F%A5%E8%8A%82%E7%82%B9%E8%B7%9D%E7%A6%BB%E6%96%B9%E7%A8%8B%E7%BB%84.png)
 
 ②：上边方程组为非线性方程组，用方程组中前n-1个方程减去第n个方程后，得到线性化的方程：
 
-![得到的线性化方程](https://github.com/megagao/IndoorPos/blob/master/image/%E5%BE%97%E5%88%B0%E7%9A%84%E7%BA%BF%E6%80%A7%E5%8C%96%E6%96%B9%E7%A8%8B.png)
+![得到的线性化方程](./image/%E5%BE%97%E5%88%B0%E7%9A%84%E7%BA%BF%E6%80%A7%E5%8C%96%E6%96%B9%E7%A8%8B.png)
 
 其中：
 
-![A、b矩阵](https://github.com/megagao/IndoorPos/blob/master/image/A%E3%80%81b%E7%9F%A9%E9%98%B5.png)
+![A、b矩阵](./image/A%E3%80%81b%E7%9F%A9%E9%98%B5.png)
 
 ③：用最小二乘法求解上边方程得：
 
-![结果](https://github.com/megagao/IndoorPos/blob/master/image/%E7%BB%93%E6%9E%9C.png)
+![结果](./image/%E7%BB%93%E6%9E%9C.png)
 
 X 便是未知终端的坐标计算值。
 
@@ -105,7 +105,7 @@ X 便是未知终端的坐标计算值。
 
 该算法的思想是对收集到的所有基站，经由id分为组n后，求组合数C（n，3），然后对每一个组合的三个基站，以每个基站坐标为圆心，测得的基站到定位终端距离为半径画圆，然后根据交点组成的三角形，求其质心，即为测得的终端坐标。大体如下：
 
-![加权三边](https://github.com/megagao/IndoorPos/blob/master/image/%E5%8A%A0%E6%9D%83%E4%B8%89%E8%BE%B9.png)
+![加权三边](./image/%E5%8A%A0%E6%9D%83%E4%B8%89%E8%BE%B9.png)
 
 然后，根据距离越大定位误差越大的原则，赋以权值(为每个基站到定位终端测得的距离)。最后，由每个组合得到的结果加权得到最终的定位结果。
 然而，由于误差的存在，且测量时位置并不在每个组合所构成的三角形中间位置，因此，当误差大时，往往所构成的圆是没有交点的（三个圆必须两两存在交点，否则不能用该方法）。
@@ -116,16 +116,16 @@ X 便是未知终端的坐标计算值。
 
 定位时，使用实现了Dealer接口的相应算法对象的getLocation(String str)方法得到终端坐标，接下来以WeightTrilateral（加权三边定位算法）为例，给出其运行时序图来演示系统执行的流程：
 
-![定位算法流程图](https://github.com/megagao/IndoorPos/blob/master/image/%E5%AE%9A%E4%BD%8D%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+![定位算法流程图](./image/%E5%AE%9A%E4%BD%8D%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 # 二、系统运行截图 #
 
-![系统登录运行界面](https://github.com/megagao/IndoorPos/blob/master/image/%E7%B3%BB%E7%BB%9F%E7%99%BB%E5%BD%95%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2.png?)
+![系统登录运行界面](./image/%E7%B3%BB%E7%BB%9F%E7%99%BB%E5%BD%95%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2.png?)
 
-![实时定位界面](https://github.com/megagao/IndoorPos/blob/master/image/%E5%AE%9E%E6%97%B6%E5%AE%9A%E4%BD%8D%E7%95%8C%E9%9D%A2.png?)
+![实时定位界面](./image/%E5%AE%9E%E6%97%B6%E5%AE%9A%E4%BD%8D%E7%95%8C%E9%9D%A2.png?)
 
-![实时定位多个场所](https://github.com/megagao/IndoorPos/blob/master/image/%E5%AE%9E%E6%97%B6%E5%AE%9A%E4%BD%8D%E5%A4%9A%E4%B8%AA%E5%9C%BA%E6%89%80.png?)
+![实时定位多个场所](./image/%E5%AE%9E%E6%97%B6%E5%AE%9A%E4%BD%8D%E5%A4%9A%E4%B8%AA%E5%9C%BA%E6%89%80.png?)
 
-![管理模块运行界面](https://github.com/megagao/IndoorPos/blob/master/image/%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2.png?)
+![管理模块运行界面](./image/%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2.png?)
 
-![历史数据运行界面](https://github.com/megagao/IndoorPos/blob/master/image/%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2.png?)
+![历史数据运行界面](./image/%E5%8E%86%E5%8F%B2%E6%95%B0%E6%8D%AE%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2.png?)
